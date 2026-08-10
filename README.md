@@ -19,14 +19,20 @@ especificación completa en
 
 ```bash
 uv sync
-uv run pytest
+cp .env.example .env
+uv run alembic upgrade head
+uv run pytest              # tests unitarios (excluye integration)
+uv run pytest -m integration
 uv run ruff check .
 uv run mypy .
 ```
 
 ## Estado actual
 
-**M1**: dominio (`Metric`, `Report`) y el puerto `DataSource` con dos adapters mock,
-verificando que el caso de uso `GenerateReportUseCase` es indiferente a cuál
-implementación de `DataSource` recibe (Liskov Substitution). Sin API HTTP, sin
-persistencia y sin PDF todavía — eso llega en los siguientes hitos del roadmap.
+**M2**: además del dominio y `GenerateReportUseCase` de M1, ahora hay tres adapters
+reales — `WeatherAdapter` (Open-Meteo + reintentos con `tenacity`), `NewsAdapter`
+(RSS vía `feedparser`) y `ErpAdapter` (lee `internal_metrics`, tabla sembrada por
+Alembic) — que conviven con los dos adapters mock demostrando que
+`GenerateReportUseCase` es indiferente a cuál de los cinco reciba (Liskov
+Substitution). Sin API HTTP, scheduler ni PDF todavía — eso llega en los
+siguientes hitos del roadmap.
