@@ -13,6 +13,7 @@ class Settings(BaseSettings):
     api_key: str
     reports_dir: str = "./data/reports"
     scheduler_timezone: str = "America/Bogota"
+    cors_origins: list[str] = ["http://localhost:4200"]
 
     smtp_host: str | None = None
     smtp_port: int = 587
