@@ -48,13 +48,27 @@ para no pisar el `.venv` de Windows con uno de Linux. En macOS/Linux nativos
 uv run pytest              # tests unitarios (excluye integration)
 uv run pytest -m integration
 uv run python scripts/render_sample_report.py   # PDFs de muestra en data/
+uv run python src/main.py                        # levanta la API en :8000 (con reload)
 ```
+
+### Variables de entorno nuevas en M4
+
+Ver [`.env.example`](.env.example). `API_KEY` es obligatoria (generar con
+`python -c "import secrets; print(secrets.token_hex(32))"`). Sin `SMTP_HOST`
+configurado, el envío de correo se omite de forma segura (`NullNotifier`, queda
+logueado) en vez de fallar.
+
+### Levantar el stack completo (API + Mailpit)
+
+Ver [`../README.md`](../README.md) — el `docker-compose.yml` vive en la raíz porque
+orquesta este repo junto a Mailpit.
 
 ## Estado actual
 
-**M3**: identidad visual de marca cerrada ("Cosecha": ámbar/verde bosque, Fraunces +
-Inter) aplicada en `PDFExporter` (WeasyPrint + Jinja2) y `ReportFactory` (Factory
-Method, elige plantilla diaria/semanal). Junto con M1/M2, `GenerateReportUseCase`
-sigue siendo indiferente a cuál de los cinco `DataSource` reciba (Liskov
-Substitution). Sin API HTTP, scheduler ni envío de correo todavía — eso llega en
-M4.
+**M4**: `GenerateAndDeliverReportUseCase` conecta todo el ciclo — genera el reporte,
+lo exporta a PDF, lo guarda en `data/reports/` + tabla `reports` (SQLite), y lo envía
+por correo (`SmtpNotifier`/`NullNotifier`). Lo dispara tanto APScheduler (cron diario
+8:00 AM) como `POST /api/v1/reports/generate` (auth por `X-API-Key`). `GET /reports`
+lista el historial, `GET /reports/{id}/download` descarga el PDF. Verificado
+end-to-end con `docker compose up`: auth, trigger manual, listado, descarga y correo
+con adjunto en Mailpit. Pendiente: decisión de frontend (`harvest-web`).
