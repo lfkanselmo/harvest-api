@@ -21,6 +21,8 @@ jobs:
       - run: uv sync
       - run: uv run ruff check .
       - run: uv run mypy .
+      - name: Crear el directorio de datos (SQLite no crea el padre solo)
+        run: mkdir -p data/reports
       - run: uv run alembic upgrade head
       - run: uv run pytest
       - run: uv run pytest -m integration --no-cov
