@@ -16,7 +16,7 @@ class GenerateReportUseCase:
         metrics: list[Metric] = []
         for source, result in zip(sources, results, strict=True):
             if isinstance(result, BaseException):
-                metrics.append(Metric.unavailable(name=type(source).__name__))
+                metrics.append(Metric.unavailable(name=source.source_name))
             else:
                 metrics.extend(result)
         return Report(generated_at=datetime.now(UTC), period=period, metrics=metrics)

@@ -9,10 +9,12 @@ dependencies = [
     "alembic>=1.19.1",
     "feedparser>=6.0.14",
     "httpx>=0.28.1",
+    "jinja2>=3.1.6",
     "pydantic>=2.9",
     "pydantic-settings>=2.15.0",
     "sqlalchemy[asyncio]>=2.0.51",
     "tenacity>=9.1.4",
+    "weasyprint>=69.0",
 ]
 
 [dependency-groups]
@@ -29,7 +31,7 @@ strict = true
 files = ["src"]
 
 [[tool.mypy.overrides]]
-module = "feedparser"
+module = ["feedparser", "weasyprint"]
 ignore_missing_imports = true
 
 [tool.ruff]
@@ -46,7 +48,7 @@ testpaths = ["tests"]
 asyncio_mode = "auto"
 addopts = "-m 'not integration' --cov=src/domain --cov-report=term-missing --cov-fail-under=100"
 markers = [
-    "integration: requiere infraestructura real (SQLite en disco)",
+    "integration: requiere infraestructura real (SQLite en disco o generacion real de PDF)",
 ]
 
 [tool.coverage.run]

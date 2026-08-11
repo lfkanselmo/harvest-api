@@ -3,6 +3,8 @@ from src.domain.value_objects import Metric, MetricStatus
 
 
 class MockWeatherAdapter(DataSource):
+    source_name = "Clima"
+
     async def fetch(self) -> list[Metric]:
         return [
             Metric(name="temp_c", value=22.5, unit="°C", status=MetricStatus.OK),

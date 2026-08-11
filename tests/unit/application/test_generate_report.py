@@ -7,6 +7,8 @@ from src.infrastructure.adapters.mock_weather_adapter import MockWeatherAdapter
 
 
 class FailingDataSource(DataSource):
+    source_name = "Fuente de prueba"
+
     async def fetch(self) -> list[Metric]:
         raise TimeoutError("la fuente no respondio a tiempo")
 
@@ -39,5 +41,5 @@ async def test_execute_degrades_a_failing_source_instead_of_crashing() -> None:
     report = await use_case.execute([MockWeatherAdapter(), FailingDataSource()])
 
     assert report.has_unavailable_metrics is True
-    fallback = next(m for m in report.metrics if m.name == "FailingDataSource")
+    fallback = next(m for m in report.metrics if m.name == "Fuente de prueba")
     assert fallback.status is MetricStatus.UNAVAILABLE

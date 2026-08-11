@@ -1,0 +1,121 @@
+:root {
+    --harvest-color-bg: #FAF6EF;
+    --harvest-color-primary: #C9821B;
+    --harvest-color-secondary: #2F5233;
+    --harvest-color-text: #2B2620;
+    --harvest-color-muted: #8A8272;
+    --harvest-color-border: #E4DCC9;
+}
+
+@font-face {
+    font-family: "Inter";
+    src: url("assets/fonts/Inter-Variable.ttf");
+    font-weight: 100 900;
+}
+
+@font-face {
+    font-family: "Fraunces";
+    src: url("assets/fonts/Fraunces-Variable.ttf");
+    font-weight: 100 900;
+}
+
+@page {
+    size: letter;
+    margin: 2.2cm 1.8cm 2cm;
+
+    @bottom-center {
+        content: "Página " counter(page) " de " counter(pages);
+        font-family: "Inter";
+        font-size: 8pt;
+        color: var(--harvest-color-muted);
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--harvest-color-bg);
+    color: var(--harvest-color-text);
+    font-family: "Inter";
+    font-weight: 400;
+    font-size: 10.5pt;
+    line-height: 1.5;
+}
+
+.wordmark {
+    font-family: "Fraunces";
+    font-weight: 600;
+    font-size: 22pt;
+    color: var(--harvest-color-primary);
+    letter-spacing: 0.02em;
+}
+
+header.report-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 2pt solid var(--harvest-color-secondary);
+    padding-bottom: 10pt;
+    margin-bottom: 18pt;
+}
+
+header.report-header .meta {
+    text-align: right;
+    font-size: 9pt;
+    color: var(--harvest-color-muted);
+}
+
+h1.section-title {
+    font-family: "Fraunces";
+    font-weight: 600;
+    font-size: 15pt;
+    color: var(--harvest-color-text);
+    margin: 0 0 12pt;
+}
+
+table.metrics {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 16pt;
+}
+
+table.metrics thead th {
+    background: var(--harvest-color-secondary);
+    color: var(--harvest-color-bg);
+    font-weight: 600;
+    font-size: 9pt;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    text-align: left;
+    padding: 7pt 10pt;
+}
+
+table.metrics tbody td {
+    padding: 7pt 10pt;
+    border-bottom: 1pt solid var(--harvest-color-border);
+    font-size: 10pt;
+}
+
+table.metrics tbody tr:nth-child(even) {
+    background: rgba(201, 130, 27, 0.06);
+}
+
+.metric-value {
+    font-weight: 600;
+}
+
+.metric-unavailable {
+    color: var(--harvest-color-muted);
+    font-style: italic;
+}
+
+footer.report-footer {
+    margin-top: 24pt;
+    padding-top: 10pt;
+    border-top: 1pt solid var(--harvest-color-border);
+    font-size: 8pt;
+    color: var(--harvest-color-muted);
+}

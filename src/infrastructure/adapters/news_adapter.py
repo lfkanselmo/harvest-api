@@ -11,6 +11,8 @@ logger = logging.getLogger(__name__)
 
 
 class NewsAdapter(DataSource):
+    source_name = "Noticias"
+
     def __init__(
         self,
         feed_url: str,

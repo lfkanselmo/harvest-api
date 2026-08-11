@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="report.css">
+</head>
+<body>
+    <header class="report-header">
+        <span class="wordmark">HARVEST</span>
+        <div class="meta">{{ report.generated_at.strftime("%d/%m/%Y %H:%M") }}</div>
+    </header>
+
+    <h1 class="section-title">{% block title %}Informe{% endblock %}</h1>
+
+    <table class="metrics">
+        <thead>
+            <tr>
+                <th>Métrica</th>
+                <th>Valor</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for metric in report.metrics %}
+            <tr>
+                <td>{{ metric.name }}</td>
+                {% if metric.value is none %}
+                <td class="metric-unavailable">N/D</td>
+                {% else %}
+                <td class="metric-value">{{ "%.2f"|format(metric.value) }} {{ metric.unit }}</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <footer class="report-footer">Informe generado automáticamente por Harvest.</footer>
+</body>
+</html>

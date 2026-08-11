@@ -12,6 +12,8 @@ logger = logging.getLogger(__name__)
 
 
 class WeatherAdapter(DataSource):
+    source_name = "Clima"
+
     def __init__(
         self,
         latitude: float,
