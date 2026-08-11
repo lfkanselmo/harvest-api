@@ -37,6 +37,9 @@ def get_data_sources() -> list[DataSource]:
     ]
 
 
+DataSourcesDep = Annotated[list[DataSource], Depends(get_data_sources)]
+
+
 def get_report_exporter() -> ReportExporter:
     return PDFExporter()
 

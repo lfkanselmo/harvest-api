@@ -114,11 +114,12 @@ externas mockeadas/inyectadas) para verificar que son intercambiables sin tocar
 
 ## Documentación de la API
 
-Todas las rutas bajo `/api/v1/reports*` requieren el header `X-API-Key` salvo `/health`.
+Todas las rutas bajo `/api/v1/reports*` requieren el header `X-API-Key` salvo `/health*`.
 
 | Método | Ruta | Auth | Descripción |
 | --- | --- | --- | --- |
 | `GET` | `/api/v1/health` | pública | Liveness check |
+| `GET` | `/api/v1/health/sources` | pública | Estado (`ok`/`unavailable`) de cada `DataSource`, llamando a cada una en vivo (golpea Open-Meteo/RSS de verdad — pensado para chequeo manual, no monitoreo de alta frecuencia) |
 | `POST` | `/api/v1/reports/generate` | `X-API-Key` | Genera un informe ahora mismo (mismo flujo que dispara el scheduler), lo guarda y lo envía por correo |
 | `GET` | `/api/v1/reports` | `X-API-Key` | Lista el historial de informes generados (`limit`, default 20) |
 | `GET` | `/api/v1/reports/{id}/download` | `X-API-Key` | Descarga el PDF de un informe (`404` si no existe) |

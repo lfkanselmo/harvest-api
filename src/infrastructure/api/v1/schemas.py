@@ -3,6 +3,7 @@ from uuid import UUID
 
 from pydantic import BaseModel
 
+from src.application.use_cases.check_sources_health import SourceHealth
 from src.domain.models import Report, ReportPeriod
 
 
@@ -11,6 +12,15 @@ class MetricOut(BaseModel):
     value: float | None
     unit: str
     status: str
+
+
+class SourceHealthOut(BaseModel):
+    name: str
+    status: str
+
+    @classmethod
+    def from_domain(cls, source_health: SourceHealth) -> "SourceHealthOut":
+        return cls(name=source_health.name, status="ok" if source_health.healthy else "unavailable")
 
 
 class ReportOut(BaseModel):

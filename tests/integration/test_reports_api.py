@@ -7,8 +7,11 @@ import pytest
 from httpx import ASGITransport, AsyncClient
 from src.domain.models import Report, ReportPeriod
 from src.domain.value_objects import Metric, MetricStatus
+from src.infrastructure.adapters.mock_news_adapter import MockNewsAdapter
+from src.infrastructure.adapters.mock_weather_adapter import MockWeatherAdapter
 from src.infrastructure.api.dependencies import (
     build_generate_and_deliver_use_case,
+    get_data_sources,
     get_report_repository,
 )
 from src.infrastructure.api.main import app
@@ -48,6 +51,7 @@ class _FakeRepository:
 def _override_dependencies() -> Iterator[None]:
     app.dependency_overrides[build_generate_and_deliver_use_case] = lambda: _FakeUseCase()
     app.dependency_overrides[get_report_repository] = lambda: _FakeRepository([_report()])
+    app.dependency_overrides[get_data_sources] = lambda: [MockWeatherAdapter(), MockNewsAdapter()]
     yield
     app.dependency_overrides.clear()
 
@@ -81,3 +85,12 @@ async def test_list_reports_with_a_valid_api_key() -> None:
 
     assert response.status_code == 200
     assert len(response.json()) == 1
+
+
+async def test_sources_health_is_public_and_reports_each_source() -> None:
+    async with await _client() as client:
+        response = await client.get("/api/v1/health/sources")
+
+    assert response.status_code == 200
+    names_and_status = {item["name"]: item["status"] for item in response.json()}
+    assert names_and_status == {"Clima": "ok", "Noticias": "ok"}
