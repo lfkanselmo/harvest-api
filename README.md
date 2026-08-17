@@ -1,5 +1,10 @@
 # Harvest API
 
+[![CI](https://github.com/lfkanselmo/harvest-api/actions/workflows/ci.yml/badge.svg)](https://github.com/lfkanselmo/harvest-api/actions/workflows/ci.yml)
+![Python](https://img.shields.io/badge/python-3.12%2B-3776AB?logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-async-009688?logo=fastapi&logoColor=white)
+![License](https://img.shields.io/badge/license-proprietary-lightgrey)
+
 Generador de informes ejecutivos automáticos. Orquesta fuentes de datos heterogéneas
 (clima, noticias, métricas internas de negocio), las normaliza vía el patrón Adapter y
 produce un informe PDF con identidad visual propia, enviado por correo todos los días a
