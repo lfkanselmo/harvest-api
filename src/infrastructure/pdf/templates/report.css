@@ -1,10 +1,10 @@
 :root {
-    --harvest-color-bg: #FAF6EF;
-    --harvest-color-primary: #C9821B;
+    --harvest-color-bg: #F4F5F7;
+    --harvest-color-primary: #A06509;
     --harvest-color-secondary: #2F5233;
-    --harvest-color-text: #2B2620;
-    --harvest-color-muted: #8A8272;
-    --harvest-color-border: #E4DCC9;
+    --harvest-color-text: #1A1D24;
+    --harvest-color-muted: #6B7280;
+    --harvest-color-border: #DDE1E8;
 }
 
 @font-face {
