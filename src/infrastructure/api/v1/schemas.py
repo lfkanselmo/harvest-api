@@ -19,7 +19,7 @@ class SourceHealthOut(BaseModel):
     status: str
 
     @classmethod
-    def from_domain(cls, source_health: SourceHealth) -> "SourceHealthOut":
+    def from_domain(cls, source_health: SourceHealth) -> SourceHealthOut:
         return cls(name=source_health.name, status="ok" if source_health.healthy else "unavailable")
 
 
@@ -31,7 +31,7 @@ class ReportOut(BaseModel):
     metrics: list[MetricOut]
 
     @classmethod
-    def from_domain(cls, report: Report) -> "ReportOut":
+    def from_domain(cls, report: Report) -> ReportOut:
         return cls(
             id=report.id,
             generated_at=report.generated_at,

@@ -1,14 +1,14 @@
 # Harvest API
 
 [![CI](https://github.com/lfkanselmo/harvest-api/actions/workflows/ci.yml/badge.svg)](https://github.com/lfkanselmo/harvest-api/actions/workflows/ci.yml)
-![Python](https://img.shields.io/badge/python-3.12%2B-3776AB?logo=python&logoColor=white)
+![Python](https://img.shields.io/badge/python-3.14%2B-3776AB?logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-async-009688?logo=fastapi&logoColor=white)
 ![License](https://img.shields.io/badge/license-proprietary-lightgrey)
 
 Generador de informes ejecutivos automáticos. Orquesta fuentes de datos heterogéneas
 (clima, noticias, métricas internas de negocio), las normaliza vía el patrón Adapter y
 produce un informe PDF con identidad visual propia, enviado por correo todos los días a
-las 8:00 AM. Backend en Python 3.12 + FastAPI, construido con Arquitectura Hexagonal
+las 8:00 AM. Backend en Python 3.14 + FastAPI, construido con Arquitectura Hexagonal
 (Ports & Adapters). Ver la especificación completa en
 [`SAD_Harvest_Generador_Informes.md`](../SAD_Harvest_Generador_Informes.md).
 
@@ -16,7 +16,7 @@ las 8:00 AM. Backend en Python 3.12 + FastAPI, construido con Arquitectura Hexag
 
 ## Requisitos
 
-- Python 3.12+
+- Python 3.14+
 - [`uv`](https://docs.astral.sh/uv/)
 - Docker — necesario para generar PDFs en Windows (ver más abajo); opcional en macOS/Linux
 
@@ -54,7 +54,7 @@ uv run alembic revision --autogenerate -m "mensaje"  # genera una nueva migraci�
 ```
 
 La migración inicial siembra `internal_metrics` (las métricas de negocio que lee
-`ERPAdapter`) con datos de ejemplo; la segunda crea `reports`, el historial de informes
+`ErpAdapter`) con datos de ejemplo; la segunda crea `reports`, el historial de informes
 generados.
 
 ---
@@ -162,7 +162,7 @@ cumple su contrato. El fallback usa `source.source_name` (una etiqueta legible c
 ### Generación de PDF
 
 `PDFExporter` renderiza una plantilla Jinja2 (`ReportFactory` elige diaria/semanal,
-Factory Method) y llama a WeasyPrint. La identidad visual ("Cosecha": ámbar `#C9821B` +
+Factory Method) y llama a WeasyPrint. La identidad visual ("Cosecha": ámbar `#A06509` +
 verde bosque `#2F5233`, tipografía Fraunces/Inter autohospedada) vive en
 `templates/report.css` como variables CSS, reutilizadas tal cual en `harvest-web`.
 

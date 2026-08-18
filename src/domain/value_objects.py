@@ -17,7 +17,7 @@ class Metric(BaseModel):
     status: MetricStatus
 
     @model_validator(mode="after")
-    def _value_matches_status(self) -> "Metric":
+    def _value_matches_status(self) -> Metric:
         if self.status is MetricStatus.OK and self.value is None:
             raise ValueError("una metrica con status 'ok' requiere un value")
         if self.status is MetricStatus.UNAVAILABLE and self.value is not None:
@@ -25,5 +25,5 @@ class Metric(BaseModel):
         return self
 
     @classmethod
-    def unavailable(cls, name: str, unit: str = "") -> "Metric":
+    def unavailable(cls, name: str, unit: str = "") -> Metric:
         return cls(name=name, value=None, unit=unit, status=MetricStatus.UNAVAILABLE)
